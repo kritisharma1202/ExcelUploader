@@ -5,13 +5,16 @@ class ImportUsersFromExcelTest < ActionDispatch::IntegrationTest
     @user=users(:one)
   end
 
-  test "should get new" do
-    get 'file_import/new'
+  test "should get file_import/new page loaded" do
+    get '/file_import/new'
     assert_response :success
   end
 
-  test "should create user" do
-    post 'file_import/show'
-    assert_response :success
+  
+  test "should post to file_import/show page" do
+    @user.save do
+      get '/file_import/show', controller: 'file_import', action: 'post'
+      assert :success
+    end
   end
 end
